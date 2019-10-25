@@ -26,7 +26,7 @@ namespace RebootIT.TimesheetApp
                 if (env.IsDevelopment())
                 {
                     var context = services.GetRequiredService<TimesheetDbContext>();
-                    context.Database.EnsureDeleted();
+                 //   context.Database.EnsureDeleted();
                     context.Database.Migrate();
                 }
             }

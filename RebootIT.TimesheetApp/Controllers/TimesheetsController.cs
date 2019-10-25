@@ -25,7 +25,10 @@ namespace RebootIT.TimesheetApp.Controllers
                                      .Include(t => t.Client)
                                      .Include(t => t.Location)
                                      .Include(t => t.Staff)
-                                     .Where()
+                                     .Where(t => id == null || t.StaffId == id)
+                                     ;
+
+            ViewData["StaffId"] = id;
 
 
             return View(await timesheetDbContext.ToListAsync());
@@ -53,11 +56,11 @@ namespace RebootIT.TimesheetApp.Controllers
         }
 
         // GET: Timesheets/Create
-        public IActionResult Create()
+        public IActionResult Create(int? staffId)
         {
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "BillingAddress");
             ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Address");
-            ViewData["StaffId"] = new SelectList(_context.Staff, "Id", "Email");
+            ViewData["StaffId"] = new SelectList(_context.Staff, "Id", "Email", staffId);
             return View();
         }
 
